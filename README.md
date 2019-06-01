@@ -26,13 +26,30 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
 
 - [ ] Mention two parts of Express that you learned about this week.
 
+Express is web app framework for the backend and adds functionality to Node so that it is more efficient to use. Some main parts are :
+    1) middleware - can manipulate the homies(req, res) before response send back. Multiple middleware functions can be chained together
+    2) routing – allows different parts of application to own a unique URL path and its associated CRUD operations.
+
 - [ ] Describe Middleware?
+
+Middleware is a function that can add functionality to express.  Common tasks like needing to parse req.body are often done with built-in middleware such as express.json() ) Built-in middleware comes with express but must be enabled.
+3rd party middleware also add commonly needed functionality(such as logging dev data). Custom middleware are functions written into the application that provide functionality such as error handling and verifying validity of req.
 
 - [ ] Describe a Resource?
 
+Resources define the public interface to your API. A resource defines which attributes are exposed, as well as relationships to other resources. Per REST, "The fundamental concept in any RESTful API is the resource. A resource is an object with a type, associated data, relationships to other resources, and a set of methods that operate on it. It is similar to an object instance in an object-oriented programming language, with the important difference that only a few standard methods are defined for the resource (corresponding to the standard HTTP GET, POST, PUT and DELETE methods), while an object instance typically has many methods." Resources are identified using Uniform Resource Identifiers
+“Resource objects” appear in a JSON:API document to represent resources.
+A resource object MUST contain at least the following top-level members:
+    id 
+    type 
+
 - [ ] What can the API return to help clients know if a request was successful?
 
+The response object can be returned(can also give a code only Lambda students and a few others will recognize) as well as some a user-friendly error message. The HTTP status codes are beter for tech savy but the 404 error is common enough that most people know somethign is not working. A useful text-message explaining the error based on status code can help the user experience because often times they are not sure if it something they are doing wrong or something wrong with the server side.
+
 - [ ] How can we partition our application into sub-applications?
+
+Routes are a great way to split out an application into partitions that can then provide specific CRUD interactions on each. Middleware can be designed so that it will only apply to specific routes(e.g. /users, /products, /orderhistory, etc. and specific middleware logic can even be performed on specific routes using  "router.param(name, callback)" and the behavior of the router.param(name, callback) method can be altered entirely by passing only a function to router.param(). Cool stuff!!!
 
 ## Project Setup
 

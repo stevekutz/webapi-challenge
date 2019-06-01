@@ -32,6 +32,27 @@ router.post('/', async(req, res) => {
 
 })
 
+// UPDATE action
+router.put('/:project_id', async(req, res) => {
+    try{
+        const updatedAction = req.body;
+        const action = await Actions.update(req.params.project_id, updatedAction);
+
+        if(action) {
+            res.status(200).json(updatedAction);
+        } else {
+            res.status(404).json({
+                message: ` the action with id ${project_id} does not exist`
+            })
+        }
+    } catch (err) {
+        res.status(500).json({
+            message: `Error trying to update to Actions`
+        });
+    }
+    
+})
+
 
 
 

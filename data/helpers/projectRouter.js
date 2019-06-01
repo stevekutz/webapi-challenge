@@ -24,9 +24,10 @@ router.post('/', async(req, res) => {
     try {
         const project = await Projects.insert(newProject);
         res.status(201).json(newProject);
-    } catch (err){
-        console.log("YOU GOT AN ERROR on POST", err);
-        error: `There was an error adding project`
+    } catch (err) {
+        res.status(500).json({
+            message: `Error trying to access Projects to add`
+        });
     }
 });
 
@@ -47,18 +48,37 @@ router.put('/:id', async(req, res) => {
             });
         }
 
-    } catch (err){
-        console.log("YOU GOT AN ERROR on UPDATE", err);
-        error: `There was an error updating project`
+    } catch (err) {
+        res.status(500).json({
+            message: `Error trying to access Projects to update`
+        });
     }
 });
 
+// DELETE project
+router.delete('/:id', async(req, res) => {
 
+    const {id} = req.params;
+    console.log(">>>>>>>>> ", req.params)
 
+    try {
+        const count = await Projects.remove(id);
+        if(count > 0) {
+            res.status(200).json({
+                message: `The project with id ${id} has been removed `
+            })
+        } else {
+            res.status(404).json({
+                message: ` Project ${id} does not exist`
+            })
+        }
 
-
-
-
+    } catch (err) {
+        res.status(500).json({
+            message: `Error trying to access Projects to delete`
+        });
+    }
+});
 
 
 module.exports = router;

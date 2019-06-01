@@ -16,7 +16,21 @@ router.get('/', async (req, res) =>{
     }
 });
 
+// ADD new action
+router.post('/', async(req, res) => {
 
+    newAction = req.body;
+
+    try {
+        const addedAction = await Actions.insert(newAction);
+        res.status(201).json(addedAction);
+    } catch (err) {
+        res.status(500).json({
+            message: `Error trying to add to Actions`
+        });
+    }
+
+})
 
 
 

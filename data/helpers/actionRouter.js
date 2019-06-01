@@ -53,6 +53,26 @@ router.put('/:project_id', async(req, res) => {
     
 })
 
+// DELETE action
+router.delete('/:project_id', async(req, res) => {
+    try {
+        const pid = req.params.project_id;
+        const count = await Actions.remove(pid);
+
+        if(count > 0) {
+            res.status(200).json({
+                messge: `The action with project id ${pid} has been removed`
+            })
+        }
+
+    } catch (err) {
+        res.status(500).json({
+            message: `Error trying to delete from Actions`
+        });
+    }
+    
+})
+
 
 
 

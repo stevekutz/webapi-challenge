@@ -30,13 +30,28 @@ router.post('/', async(req, res) => {
     }
 });
 
+// UPDATE project  
+router.put('/:id', async(req, res) => {
 
+    const updatedProject = req.body;
+    const {id} = req.params;
 
+    try {
+        const projectUpdate = await Projects.update( id, updatedProject);
 
+        if(projectUpdate) {
+            res.status(200).json(updatedProject);
+        } else {
+            res.status(404).json({
+                message: ` Cannot update, the project with id ${id} does not exist`
+            });
+        }
 
-
-
-
+    } catch (err){
+        console.log("YOU GOT AN ERROR on UPDATE", err);
+        error: `There was an error updating project`
+    }
+});
 
 
 
